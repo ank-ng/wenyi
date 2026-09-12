@@ -48,6 +48,18 @@ class GlossaryExtractor(Agent):
         self._recurrence_matcher: GlossaryOccurrenceMatcher | None = None
         self._recurrence_cache: dict[tuple[str, str, tuple[str, ...]], bool] = {}
 
+    @staticmethod
+    def _script_contaminated(source: str, target: str) -> bool:
+        """Detect CJK/Cyrillic characters in the target that the source never had.
+        Multilingual models sometimes leak characters from another language into a
+        translation; locking such a target into the glossary would contaminate the
+        whole book. Intentional quotations (CJK already in the source) still pass."""
+        import re as _re
+
+        if _re.search(r"[\u4e00-\u9fff\u3040-\u30ff\u0400-\u04FF]", source or ""):
+            return False
+        return bool(_re.search(r"[\u4e00-\u9fff\u3040-\u30ff\u0400-\u04FF]", target or ""))
+
     def _recurring_existing_terms(
         self,
         terms: list[GlossaryTerm],
@@ -247,6 +259,9 @@ class GlossaryExtractor(Agent):
         for t in terms:
             evidence = occurrences.get(t.source)
             t.first_chapter = evidence.chapter if evidence is not None else chapter
+            if self._script_contaminated(t.source, t.target):
+                summary["script_rejected"] = summary.get("script_rejected", 0) + 1
+                continue
             result = store.upsert_term(t, chapter=chapter)
             summary[result] = summary.get(result, 0) + 1
         return summary
