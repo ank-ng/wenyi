@@ -63,5 +63,38 @@ class TestLangNormalize(unittest.TestCase):
         self.assertEqual(normalize_lang(""), "")
 
 
+class TestSeedTitleGlossary(unittest.TestCase):
+    def test_pins_keep_as_is_and_human_wins_reseed(self):
+        from trans_novel.glossary.store import GlossaryStore
+
+        with tempfile.TemporaryDirectory() as d:
+            store = GlossaryStore(os.path.join(d, "g.db"))
+            try:
+                doc = type("Doc", (), {"title": "Fooled by Randomness (Incerto)"})()
+                PreparationService._seed_title_glossary(store, doc)
+                term = store.get_term("Fooled by Randomness (Incerto)")
+                self.assertIsNotNone(term)
+                assert term is not None
+                self.assertEqual(term.target, "Fooled by Randomness (Incerto)")
+                store.resolve_term("Fooled by Randomness (Incerto)", "Bị đánh lừa")
+                PreparationService._seed_title_glossary(store, doc)
+                self.assertEqual(
+                    store.get_term("Fooled by Randomness (Incerto)").target, "Bị đánh lừa"
+                )
+            finally:
+                store.close()
+
+    def test_empty_title_safe(self):
+        from trans_novel.glossary.store import GlossaryStore
+
+        with tempfile.TemporaryDirectory() as d:
+            store = GlossaryStore(os.path.join(d, "g.db"))
+            try:
+                PreparationService._seed_title_glossary(store, type("D", (), {"title": ""})())
+                self.assertEqual(store.stats(), {"terms": 0, "open_conflicts": 0})
+            finally:
+                store.close()
+
+
 if __name__ == "__main__":
     unittest.main()

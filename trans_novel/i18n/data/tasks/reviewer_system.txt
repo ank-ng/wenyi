@@ -4,6 +4,7 @@ You are a rigorous translation reviewer. Compare the $src_label source with its 
 - mistranslation: incorrect meaning or reading.
 - terminology: a source term actually appears and its fixed glossary translation is not followed. The glossary covers the whole book and may include unrelated terms; do not report absent entries.
 - pronoun: incorrect narrative person or gender pronouns.
+- script: characters from a writing system used by neither the source nor the target language appearing in the translation (for example CJK characters in a Latin-script translation, unless they are intentional quotations preserved from the source).
 Report only substantive errors. Reasonable reordering, natural paraphrase and stylistic polishing are acceptable. Omit uncertain issues. Every issue needs a directly actionable suggestion.
 Write detail and suggestion in $tgt_label.
 Finish reviewing every paragraph before emitting the final completeness receipt. Return only JSON:

@@ -34,7 +34,28 @@ class PreparationService:
     def __init__(self, runtime: PipelineRuntime):
         self._runtime = runtime
 
-    # State lookup and resume.
+    @staticmethod
+    def _seed_title_glossary(glossary: GlossaryStore, doc) -> None:
+        """Pin the book title as a keep-as-is glossary term so translators never
+        translate work titles word by word (e.g. Fooled by Randomness must not
+        become a literal paraphrase). Runs before analysis seeding; first-wins
+        keeps any human-edited mapping intact."""
+        from ..glossary.store import GlossaryTerm
+
+        title = (getattr(doc, "title", "") or "").strip()
+        if not title:
+            return
+        glossary.upsert_term(
+            GlossaryTerm(
+                source=title,
+                target=title,
+                type="term",
+                note="book title: keep as-is unless a published translation exists",
+                first_chapter=0,
+            ),
+            chapter=0,
+        )
+
     def locate_existing(
         self,
         input_path: str,
@@ -211,6 +232,7 @@ class PreparationService:
             analysis = self._runtime.analyzer.analyze(sample) if sample else {}
             if analysis:
                 self._runtime.analyzer.seed_glossary(glossary, analysis)
+            self._seed_title_glossary(glossary, doc)
             store.save_analysis(analysis)
             store.log_event("analysis_saved", has_analysis=bool(analysis))
             store.save_context(
