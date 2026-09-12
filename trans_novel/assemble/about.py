@@ -12,17 +12,28 @@ from bs4 import BeautifulSoup
 from ..i18n.languages import normalize_language
 from ..i18n.resources import read_text
 
-ABOUT_TITLE = "关于此翻译"
+ABOUT_TITLES = {
+    "zh": "关于此翻译",
+    "vi": "Về bản dịch này",
+    "en": "About this translation",
+}
+ABOUT_TITLE = ABOUT_TITLES["zh"]
 ABOUT_FILENAME = "trans-novel-about.xhtml"
 ABOUT_REPOSITORY = "https://github.com/BigDawnGhost/wenyi"
 
 
 def about_xhtml(lang: str) -> bytes:
     """Return a standalone XHTML page suitable for the EPUB spine."""
-    locale = "zh" if normalize_language(lang) == "zh" else "en"
+    normalized = normalize_language(lang)
+    if normalized == "zh":
+        locale = "zh"
+    elif normalized == "vi":
+        locale = "vi"
+    else:
+        locale = "en"
     return (
         Template(read_text(f"export/about.{locale}.xhtml"))
-        .substitute(lang=lang, title=ABOUT_TITLE, repository=ABOUT_REPOSITORY)
+        .substitute(lang=lang, title=ABOUT_TITLES[locale], repository=ABOUT_REPOSITORY)
         .encode("utf-8")
     )
 

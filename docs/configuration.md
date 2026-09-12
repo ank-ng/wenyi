@@ -23,6 +23,8 @@ All generated descriptive metadata, including glossary `note`, style guidance, c
 | `ja`, `ko` | Japanese, Korean |
 | `fr`, `de`, `es`, `it` | French, German, Spanish, Italian |
 | `pt`, `pt-BR`, `pt-PT`, `ru` | Portuguese, Brazilian/European Portuguese, Russian |
+| `vi` | Vietnamese |
+| `vi-kythuat`, `vi-daichung`, `vi-vanhoc`, `vi-hucau` | Technical, popular, literary, fictional Vietnamese (extend `vi`) |
 
 Run `uv run trans-novel languages` to list built-in profiles without an API key. `target` cannot be `auto`; unsupported codes fail configuration validation. Compatibility aliases include `zh-Hans` / `zh-CN` → `zh`, `zh-TW` → `zh-Hant`, `ja-JP` → `ja`, and `ko-KR` → `ko`. Registered script/region variants are preserved rather than truncated to two letters.
 

@@ -13,6 +13,7 @@ from trans_novel.glossary.store import (
     TYPE_PERSON,
     GlossaryStore,
     GlossaryTerm,
+    normalize_target_text,
     source_matches_text,
 )
 
@@ -219,6 +220,28 @@ class TestGlossary(unittest.TestCase):
             [term.source for term in self.store.all_terms()],
             ["乙", "甲", "丙"],
         )
+
+    def test_normalize_target_text_fixes_vietnamese_compounds(self):
+        self.assertEqual(normalize_target_text("2 triệu đô-la"), "2 triệu đô la")
+        self.assertEqual(normalize_target_text("  2   triệu   đô-la  "), "2 triệu đô la")
+        self.assertEqual(normalize_target_text("lãi kép"), "lãi kép")
+
+    def test_upsert_normalizes_target_before_insert(self):
+        self.store.upsert_term(GlossaryTerm(source="$2 million", target="2 triệu đô-la"))
+        term = self.store.get_term("$2 million")
+        self.assertEqual(term.target, "2 triệu đô la")
+
+    def test_upsert_merges_format_variants_without_conflict(self):
+        self.store.upsert_term(GlossaryTerm(source="$2 million", target="2 triệu đô-la"))
+        result = self.store.upsert_term(GlossaryTerm(source="$2 million", target="2 triệu đô la"))
+        self.assertEqual(result, "unchanged")
+        self.assertEqual(self.store.stats()["open_conflicts"], 0)
+
+    def test_upsert_still_conflicts_on_real_meaning_change(self):
+        self.store.upsert_term(GlossaryTerm(source="bank", target="ngân hàng"))
+        result = self.store.upsert_term(GlossaryTerm(source="bank", target="bờ sông"))
+        self.assertEqual(result, "conflict")
+        self.assertEqual(self.store.stats()["open_conflicts"], 1)
 
 
 if __name__ == "__main__":

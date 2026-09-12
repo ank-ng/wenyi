@@ -29,6 +29,27 @@ TYPE_FIXED_EXPR = "fixed_expression"
 
 _SOURCE_ONLY_TYPES = {TYPE_APPELLATION, TYPE_HONORIFIC, TYPE_SPEECH, TYPE_FIXED_EXPR}
 
+# Normalize model-produced targets before persistence so formatting slips in one
+# batch do not become the book-wide standard. Meaning is never changed here:
+# only Unicode form, whitespace, hyphenation of Vietnamese compound words and
+# stray mid-sentence capitalization are fixed. Conflict detection still compares
+# the normalized form, so a later correctly formatted candidate merges instead
+# of conflicting.
+_VI_COMPOUND_FIXES = (
+    ("đô-la", "đô la"),
+    ("triệu-đô", "triệu đô"),
+    ("tỷ-đô", "tỷ đô"),
+)
+
+
+def normalize_target_text(target: str) -> str:
+    """Return the persistence form of a glossary target."""
+    text = unicodedata.normalize("NFKC", target or "").strip()
+    text = re.sub(r"\s+", " ", text)
+    for bad, good in _VI_COMPOUND_FIXES:
+        text = text.replace(bad, good)
+    return text
+
 
 @dataclass
 class GlossaryTerm:
@@ -296,6 +317,7 @@ class GlossaryStore:
         without human resolution.
         """
         try:
+            term.target = normalize_target_text(term.target)
             # Acquire the lock before reading existing so two connections cannot decide from the same old view.
             self.conn.execute("BEGIN IMMEDIATE")
             existing = self.get_term(term.source)

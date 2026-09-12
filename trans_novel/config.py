@@ -16,7 +16,7 @@ _DEFAULT_CONFIG_YAML = """\
 
 language:
   source: auto # auto detects the source language; use an explicit code such as ja / en / ko / ru / de to override
-  target: zh # Target: zh / zh-Hant / en / ja / ko / fr / de / es / it / pt / ru; run languages for the full list
+  target: zh # Target: zh / zh-Hant / en / ja / ko / fr / de / es / it / pt / ru / vi; run languages for the full list
 
 # ── LLM ──────────────────────────────────────────────────────────────────
 llm:
