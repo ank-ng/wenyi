@@ -212,7 +212,6 @@ def step6_assemble(tmp: str) -> float:
     names = z.namelist()
     about = next(z.read(n) for n in names if "trans-novel-about" in n).decode("utf-8")
     z.close()
-    calls_before = None
     second = FakeClient(handler=_rich_handler)
     Orchestrator(cfg, client=second).run(src)
     checks = [
