@@ -2,5 +2,5 @@
   "extends": "vi",
   "label": "Tiếng Việt kỹ thuật",
   "english_name": "Technical Vietnamese",
-  "target_guidance": "Viết tiếng Việt kỹ thuật chính xác, khô. Thuật ngữ tuân glossary, một thuật ngữ một dạng suốt sách. Số liệu, đơn vị, công thức giữ nguyên giá trị; tên đơn vị theo chuẩn đo lường Việt Nam. Câu ngắn, một ý một câu. Người kể trung lập. Trả văn bản thuần khớp định dạng gốc, không dùng cú pháp markdown. Được phép tách câu dài, gộp câu ngắn, đảo trật tự mệnh đề để dễ hiểu hơn; phép đọc to kiểm tra: chỗ nào người đọc vấp thì viết lại đơn giản hơn mà vẫn đủ ý."
+  "target_guidance": "Viết tiếng Việt kỹ thuật chính xác, khô. Thuật ngữ tuân glossary, một thuật ngữ một dạng suốt sách. Số liệu, đơn vị, công thức giữ nguyên giá trị; tên đơn vị theo chuẩn đo lường Việt Nam. Câu ngắn, một ý một câu. Người kể trung lập. Trả văn bản thuần khớp định dạng gốc, không dùng cú pháp markdown. Được phép tách câu dài, gộp câu ngắn, đảo trật tự mệnh đề để dễ hiểu hơn; phép đọc to kiểm tra: chỗ nào người đọc vấp thì viết lại đơn giản hơn mà vẫn đủ ý. Câu Anh dài tách ngắn; không giữ xương câu gốc khi tiếng Việt có cấu trúc tương đương gọn hơn."
 }
