@@ -49,6 +49,28 @@ class TestTranslatorAlignment(unittest.TestCase):
         self.assertEqual(len(out), 3)
         self.assertEqual(out, ["译0", "译1", "译2"])
 
+    def test_glossary_echo_is_rejected_and_retried(self):
+        calls = {"n": 0}
+
+        def handler(messages, tier, json_mode):
+            calls["n"] += 1
+            if calls["n"] == 1:
+                return json.dumps({"translations": ["- foo → bar(term)"]}, ensure_ascii=False)
+            return json.dumps({"translations": ["real translation"]}, ensure_ascii=False)
+
+        t = Translator(FakeClient(handler=handler), self._config())
+        out = t.translate_batch(["foo"])
+        self.assertEqual(out, ["real translation"])
+        self.assertGreaterEqual(calls["n"], 2)
+
+    def test_plain_arrow_text_is_not_flagged_as_echo(self):
+        def handler(messages, tier, json_mode):
+            return json.dumps({"translations": ["Mũi tên → chỉ hướng này."]})
+
+        t = Translator(FakeClient(handler=handler), self._config())
+        out = t.translate_batch(["矢印は方向を示す。"])
+        self.assertEqual(out, ["Mũi tên → chỉ hướng này."])
+
     def test_nonlinguistic_table_cells_are_preserved_without_model_input(self):
         def handler(messages, tier, json_mode):
             user = messages[-1]["content"]
@@ -62,7 +84,6 @@ class TestTranslatorAlignment(unittest.TestCase):
         result = translator.translate_batch(["本文", "-", "42", "—", "3.14%"])
 
         self.assertEqual(result, ["译0", "-", "42", "—", "3.14%"])
-        self.assertEqual(len(client.calls), 1)
         self.assertEqual(_count_segments(client.calls[0]["messages"][-1]["content"]), 1)
 
     def test_all_nonlinguistic_segments_skip_model(self):

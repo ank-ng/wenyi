@@ -7,10 +7,18 @@ entire paragraphs from being omitted.
 
 from __future__ import annotations
 
+import re
+
 from ..glossary.store import GlossaryTerm
 from ..llm.json_parser import JsonParseError
 from . import langprofile, prompts
 from .base import Agent
+
+
+_GLOSSARY_ECHO_RE = re.compile(
+    r"→[^\n]*\((?:term|person|place|organization|technique|item|setting|appellation|honorific|speech|fixed_expression)\)|^\s*-\s*\S[^\n]*→",
+    re.MULTILINE,
+)
 
 
 class AlignmentError(Exception):
@@ -122,6 +130,10 @@ class Translator(Agent):
             )
         if any(not isinstance(item, str) or not item.strip() for item in items):
             raise AlignmentError("The model returned an empty or non-string translation")
+        if any(_GLOSSARY_ECHO_RE.search(item) for item in items if isinstance(item, str)):
+            raise AlignmentError(
+                "The model echoed glossary reference lines instead of translating"
+            )
         return items
 
     def _translate_one(
