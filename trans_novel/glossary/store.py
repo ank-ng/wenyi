@@ -51,6 +51,18 @@ def normalize_target_text(target: str) -> str:
     return text
 
 
+_VI_FUNCTION_PREFIXES = ('sự ', 'tính ', 'cái ', 'việc ', 'sự-', 'tính-', 'cái-')
+
+
+def conflict_compare_key(target: str) -> str:
+    """Compare two targets by meaning: casefolded, leading nominalizers stripped."""
+    text = normalize_target_text(target).casefold()
+    for prefix in _VI_FUNCTION_PREFIXES:
+        if text.startswith(prefix):
+            text = text[len(prefix):]
+            break
+    return text.strip()
+
 @dataclass
 class GlossaryTerm:
     source: str
@@ -342,8 +354,8 @@ class GlossaryStore:
                     ),
                 )
                 result = "inserted"
-            elif existing.target == term.target:
-                # Merging aliases or filling missing fields is not a conflict.
+            elif conflict_compare_key(existing.target) == conflict_compare_key(term.target):
+                # Same meaning modulo case and nominalizers: merge, not a conflict.
                 merged_aliases = sorted(set(existing.aliases) | set(term.aliases))
                 self.conn.execute(
                     """UPDATE glossary SET reading=COALESCE(NULLIF(?,''),reading),

@@ -95,6 +95,8 @@ def _epub_lang(lang: str | None) -> str:
     normalized = normalize_language(lang or "zh")
     if normalized == "zh":
         return "zh-Hans"
+    if normalized.startswith("vi"):
+        return "vi"
     return normalized or (lang or "zh-Hans").replace("_", "-")
 
 
