@@ -132,7 +132,7 @@ def r07_tts_guard_markers():
         "viết bằng chữ",
         "giữ ký hiệu gọn",
         "ba chấm một ký tự",
-        "cách hai bên",
+        "cách một khoảng hai bên",
     ]
     r = prompts.render("translator_system", src="en", tgt="vi")
     hit = sum(1 for m in markers if m in r)

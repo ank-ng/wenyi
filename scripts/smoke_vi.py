@@ -127,7 +127,7 @@ def t_tts_guard_renders_everywhere():
         "viết bằng chữ",
         "giữ ký hiệu gọn",
         "ba chấm một ký tự",
-        "cách hai bên",
+        "cách một khoảng hai bên",
     ):
         assert needle in body, needle
 
