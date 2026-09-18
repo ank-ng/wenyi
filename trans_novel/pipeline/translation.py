@@ -674,9 +674,14 @@ class TranslationService:
             batches.append(current)
 
         completed = 0
-        glossary_text = prompts.render_glossary(glossary.all_terms())
         for batch_index, batch in enumerate(batches):
             titles = [str(item["source"]) for item in batch]
+            # Only terms occurring in this title batch ride the prompt: the full
+            # glossary (thousands of entries late in a book) would drown a short
+            # title list and burn a strong-tier call for no gain.
+            glossary_text = prompts.render_glossary(
+                GlossaryStore.terms_in(glossary.all_terms(), "\n".join(titles))
+            )
             system = prompts.render(
                 "title_translator_system",
                 src=self._runtime.config.source_lang,

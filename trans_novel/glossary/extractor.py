@@ -115,6 +115,11 @@ class GlossaryExtractor(Agent):
             target = _text(d.get("target"))
             if not source or not target:
                 continue
+            # Glossary entries are words and short phrases: a source longer
+            # than four words can never match a later batch by substring, so
+            # keeping it only burns prompt tokens and spawns phantom conflicts.
+            if len(source.split()) > 4:
+                continue
             raw_aliases = d.get("aliases")
             aliases = raw_aliases if isinstance(raw_aliases, list) else []
             gender = _text(d.get("gender"))

@@ -176,6 +176,26 @@ class TestExtractor(unittest.TestCase):
         self.assertEqual(result[0].aliases, [])
         self.assertEqual(result[0].note, "")
 
+    def test_long_sources_are_not_extracted_as_terms(self):
+        terms = {
+            "terms": [
+                {"source": "luck", "target": "may mắn"},
+                {"source": "Fooled by Randomness", "target": "Fooled by Randomness"},
+                {
+                    "source": "our mind is not equipped to handle probabilities",
+                    "target": "tâm trí không xử lý được xác suất",
+                },
+            ]
+        }
+        extractor = GlossaryExtractor(FakeClient(handler=lambda m, t, j: json.dumps(terms)), _cfg())
+
+        result = extractor.extract("luck Fooled by Randomness mind", "may mắn", [])
+
+        sources = [term.source for term in result]
+        self.assertIn("luck", sources)
+        self.assertIn("Fooled by Randomness", sources)
+        self.assertNotIn("our mind is not equipped to handle probabilities", sources)
+
     def test_multiple_new_terms_use_targets_from_first_translated_occurrences(self):
         calls: list[str] = []
 
