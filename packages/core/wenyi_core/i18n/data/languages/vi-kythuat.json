@@ -1,0 +1,6 @@
+{
+  "extends": "vi",
+  "label": "Tiếng Việt kỹ thuật",
+  "english_name": "Technical Vietnamese",
+  "target_guidance": "Viết tiếng Việt kỹ thuật chính xác, khô. Thuật ngữ tuân glossary, một thuật ngữ một dạng suốt sách. Số liệu, đơn vị, công thức giữ nguyên giá trị; tên đơn vị theo chuẩn đo lường Việt Nam. Câu ngắn, một ý một câu. Người kể trung lập. Trả văn bản thuần khớp định dạng gốc, không dùng cú pháp markdown. Được phép tách câu dài, gộp câu ngắn, đảo trật tự mệnh đề để dễ hiểu hơn; phép đọc to kiểm tra: chỗ nào người đọc vấp thì viết lại đơn giản hơn mà vẫn đủ ý. Câu Anh dài tách ngắn; không giữ xương câu gốc khi tiếng Việt có cấu trúc tương đương gọn hơn. Diễn giải lại cho dễ hiểu mà không đổi nghĩa kỹ thuật: khái niệm trừu tượng thì thêm một câu định nghĩa ngắn; không bỏ điều kiện, giới hạn hay ngoại lệ nào. Phân biệt kính ngữ xã hội (tuổi tác, chức vụ) với quan hệ huyết thống: không suy quan hệ gia đình từ cách xưng hô xã hội. Ký hiệu lạ trong nguồn (mốc chú thích, phiên âm kèm, chỉ dẫn sân khấu) giữ đúng vị trí, không dịch nội dung ký hiệu. Tên người nước ngoài giữ nguyên chính tả gốc, không phiên âm. Mọi từ trong bản dịch đều phải là tiếng Việt, không để sót từ gốc. Không lặp cùng một từ trong một cụm từ."
+}

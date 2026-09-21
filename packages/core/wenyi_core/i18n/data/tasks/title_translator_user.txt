@@ -5,3 +5,4 @@ $glossary
 $numbered_titles
 
 Return JSON: {"titles":[...]}, with exactly $n items.
+Translate only the words present; never add words the source title does not contain.

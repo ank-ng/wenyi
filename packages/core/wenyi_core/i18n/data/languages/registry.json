@@ -14,7 +14,12 @@
     "en-US",
     "en-GB",
     "pt-BR",
-    "pt-PT"
+    "pt-PT",
+    "vi",
+    "vi-kythuat",
+    "vi-daichung",
+    "vi-vanhoc",
+    "vi-hucau"
   ],
   "aliases": {
     "japanese": "ja",
@@ -80,6 +85,18 @@
     "simplified chinese": "zh",
     "traditional chinese": "zh-Hant",
     "ja-jp": "ja",
-    "ko-kr": "ko"
+    "ko-kr": "ko",
+    "vietnamese": "vi",
+    "tiếng việt": "vi",
+    "tieng viet": "vi",
+    "việt": "vi",
+    "viet": "vi",
+    "vie": "vi",
+    "vn": "vi",
+    "vi": "vi",
+    "vi-kythuat": "vi-kythuat",
+    "vi-daichung": "vi-daichung",
+    "vi-vanhoc": "vi-vanhoc",
+    "vi-hucau": "vi-hucau"
   }
 }
