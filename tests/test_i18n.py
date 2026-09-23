@@ -341,6 +341,21 @@ def test_partial_non_chinese_run_resumes_without_retranslating_saved_batch():
         ]
 
 
+def test_vi_title_translator_carries_pronoun_guidance():
+    rendered = prompts.render("title_translator_system", src="en", tgt="vi-daichung")
+    assert "Cấm I thành ta" in rendered
+
+
+def test_glossary_extractor_flags_untranslated_terms_for_audit():
+    rendered = prompts.render("glossary_extractor_system", src="en", tgt="vi-daichung")
+    assert "NEEDS_AUDIT" in rendered
+
+
+def test_vi_reviewer_checks_pronoun_against_language_guidance():
+    rendered = prompts.render("reviewer_system", src="en", tgt="vi-daichung", n=3)
+    assert "Cấm I thành ta" in rendered
+
+
 def test_review_rechecks_when_language_resources_change():
     with tempfile.TemporaryDirectory() as directory:
         source = Path(directory) / "novel.txt"

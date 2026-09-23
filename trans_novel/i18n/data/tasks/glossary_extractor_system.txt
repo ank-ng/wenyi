@@ -8,7 +8,7 @@ Extract:
    Include only expressions that affect later consistency. Exclude ordinary greetings, particles, one-off imagery and common vocabulary.
 Rules:
 - Fill target with the actual $tgt_label wording used in this batch. Do not invent translations.
-- Reuse existing mappings where applicable. If this batch uses a clearly different translation, report it faithfully so the system can record a conflict.
+- Reuse existing mappings where applicable. If this batch uses a clearly different translation, report it faithfully so the system can record a conflict. If target is identical to source for a non-proper-noun term (term|technique|item|fixed_expression), add "NEEDS_AUDIT: " prefix to note so reviewers can spot untranslated terms.
 - The glossary may contain entries absent from this batch. Do not repeat entries that are not confirmed by this batch's source or translation.
 $metadata_guidance
 Term field guidance: $term_guidance
