@@ -26,8 +26,10 @@ CRITERIA: list[tuple[str, list[tuple[str, str]]]] = [
         "pronoun-i-we-ta",
         [
             ("i-is-toi", r"I\s+là\s+tôi"),
-            ("we-inc-ta", r"we\s+bao\s+hàm\s+là\s+ta\s+hoặc\s+chúng\s+ta"),
-            ("we-exc-chungtoi", r"we\s+loại\s+trừ\s+là\s+chúng\s+tôi"),
+            ("we-default-exclusive", r"we\s+mặc\s+định\s+là\s+chúng\s+tôi"),
+            ("we-inc-invitation", r"chỉ\s+dùng\s+ta\s+hoặc\s+chúng\s+ta\s+khi"),
+            ("we-proper-noun", r"we\s+kèm\s+tên\s+riêng"),
+            ("we-community", r"giới\s+nghiên\s+cứu\s+gọi"),
             ("you-always-ban", r"you\s+chung\s+luôn\s+là\s+bạn"),
             ("ban-i-to-ta", r"Cấm\s+I\s+thành\s+ta"),
         ],

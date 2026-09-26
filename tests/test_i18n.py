@@ -356,6 +356,31 @@ def test_vi_reviewer_checks_pronoun_against_language_guidance():
     assert "Cấm I thành ta" in rendered
 
 
+def test_vi_we_defaults_to_exclusive_not_inclusive():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "we mặc định là chúng tôi" in rendered
+
+
+def test_vi_bans_ke_le_for_neutral_tale():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "kể lể" in rendered
+
+
+def test_vi_glossary_terms_copied_verbatim():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "chép y nguyên" in rendered
+
+
+def test_vi_comparative_keeps_both_clauses():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "So sánh hơn giữ nguyên hai vế" in rendered
+
+
+def test_vi_correlative_negation_keeps_both_clauses():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "Phủ định tương quan dịch đủ cả hai vế" in rendered
+
+
 def test_review_rechecks_when_language_resources_change():
     with tempfile.TemporaryDirectory() as directory:
         source = Path(directory) / "novel.txt"
