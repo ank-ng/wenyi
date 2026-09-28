@@ -371,6 +371,16 @@ def test_vi_glossary_terms_copied_verbatim():
     assert "chép y nguyên" in rendered
 
 
+def test_vi_nested_speech_identifies_speaker():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "Thoại lồng thoại" in rendered
+
+
+def test_vi_single_term_form_bookwide():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "một dạng duy nhất toàn sách" in rendered
+
+
 def test_vi_comparative_keeps_both_clauses():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
     assert "So sánh hơn giữ nguyên hai vế" in rendered
