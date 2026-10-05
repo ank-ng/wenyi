@@ -383,7 +383,7 @@ def test_vi_single_term_form_bookwide():
 
 def test_vi_comparative_keeps_both_clauses():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "So sánh hơn giữ nguyên hai vế" in rendered
+    assert "So sánh giữ nguyên hai vế" in rendered
 
 
 def test_vi_correlative_negation_keeps_both_clauses():

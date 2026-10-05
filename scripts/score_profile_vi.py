@@ -27,7 +27,7 @@ CRITERIA: list[tuple[str, list[tuple[str, str]]]] = [
         [
             ("i-is-toi", r"I\s+là\s+tôi"),
             ("we-default-exclusive", r"we\s+mặc\s+định\s+là\s+chúng\s+tôi"),
-            ("we-inc-invitation", r"chỉ\s+dùng\s+ta\s+hoặc\s+chúng\s+ta\s+khi"),
+            ("we-inc-invitation", r"ta\s+chỉ\s+dùng\s+khi\s+rủ\s+bạn\s+đọc"),
             ("we-proper-noun", r"we\s+kèm\s+tên\s+riêng"),
             ("we-community", r"giới\s+nghiên\s+cứu\s+gọi"),
             ("you-always-ban", r"you\s+chung\s+luôn\s+là\s+bạn"),
