@@ -381,6 +381,16 @@ def test_vi_single_term_form_bookwide():
     assert "một dạng duy nhất toàn sách" in rendered
 
 
+def test_vi_relative_clauses_split_short():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "Mệnh đề quan hệ lồng nhau" in rendered
+
+
+def test_vi_passive_rewritten_active():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "Bị động khoa học viết thành chủ động" in rendered
+
+
 def test_vi_comparative_keeps_both_clauses():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
     assert "So sánh giữ nguyên hai vế" in rendered
