@@ -398,7 +398,7 @@ def test_vi_drops_repeated_subject_pronoun():
 
 def test_vi_bans_dry_nominalization():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "cơ chế kiểm soát" in rendered
+    assert "việc kiềm chế kèm bổ ngữ" in rendered
 
 
 def test_vi_comparative_keeps_both_clauses():
