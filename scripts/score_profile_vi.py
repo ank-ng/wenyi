@@ -30,7 +30,7 @@ CRITERIA: list[tuple[str, list[tuple[str, str]]]] = [
             ("we-inc-invitation", r"ta\s+chỉ\s+dùng\s+khi\s+rủ\s+bạn\s+đọc"),
             ("we-proper-noun", r"we\s+kèm\s+tên\s+riêng"),
             ("we-community", r"hoặc\s+giới\s+nghiên\s+cứu"),
-            ("you-always-ban", r"you\s+chung\s+luôn\s+là\s+bạn"),
+            ("you-always-ban", r"[Yy]ou\s+chung\s+luôn\s+là\s+bạn"),
             ("ban-i-to-ta", r"Cấm\s+I\s+thành\s+ta"),
         ],
     ),
