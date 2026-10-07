@@ -411,6 +411,11 @@ def test_vi_correlative_negation_keeps_both_clauses():
     assert "Phủ định tương quan dịch đủ cả hai vế" in rendered
 
 
+def test_vi_japanese_names_keep_honorifics():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "hậu tố xưng hô" in rendered
+
+
 def test_review_rechecks_when_language_resources_change():
     with tempfile.TemporaryDirectory() as directory:
         source = Path(directory) / "novel.txt"
