@@ -445,3 +445,13 @@ def test_review_rechecks_when_language_resources_change():
         ):
             orchestrator.run_review(str(source))
         assert len(client.calls) > before
+
+
+def test_vi_premium_renders_with_musical_voice():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-premium")
+    assert "năm tuổi" in rendered
+
+
+def test_vi_premium_keeps_structure_no_new_images():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-premium")
+    assert "cấm bẻ văn xuôi thành thơ" in rendered
