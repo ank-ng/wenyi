@@ -393,7 +393,7 @@ def test_vi_passive_rewritten_active():
 
 def test_vi_drops_repeated_subject_pronoun():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "Cùng chủ ngữ lặp" in rendered
+    assert "đổi cách gọi xen kẽ" in rendered
 
 
 def test_vi_bans_dry_nominalization():
@@ -455,3 +455,8 @@ def test_vi_premium_renders_with_musical_voice():
 def test_vi_premium_keeps_structure_no_new_images():
     rendered = prompts.render("translator_system", src="en", tgt="vi-premium")
     assert "cấm bẻ văn xuôi thành thơ" in rendered
+
+
+def test_vi_synonym_merging_varied_or_dropped():
+    rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
+    assert "đổi cách gọi xen kẽ" in rendered
