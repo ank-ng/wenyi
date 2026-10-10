@@ -460,3 +460,17 @@ def test_vi_premium_keeps_structure_no_new_images():
 def test_vi_synonym_merging_varied_or_dropped():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
     assert "đổi cách gọi xen kẽ" in rendered
+
+
+def test_vi_genre_profiles_match_source_parts():
+    import subprocess
+    import sys
+
+    repo = Path(__file__).resolve().parents[1]
+    result = subprocess.run(
+        [sys.executable, str(repo / "scripts" / "build_vi_profiles.py"), "--check"],
+        capture_output=True,
+        text=True,
+        cwd=repo,
+    )
+    assert result.returncode == 0, result.stdout + result.stderr
