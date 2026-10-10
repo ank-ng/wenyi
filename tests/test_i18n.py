@@ -363,7 +363,7 @@ def test_vi_we_defaults_to_exclusive_not_inclusive():
 
 def test_vi_bans_ke_le_for_neutral_tale():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "kể lể" in rendered
+    assert "cấm kể lể" in rendered
 
 
 def test_vi_glossary_terms_copied_verbatim():
@@ -383,12 +383,12 @@ def test_vi_single_term_form_bookwide():
 
 def test_vi_relative_clauses_split_short():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "Mệnh đề quan hệ lồng nhau" in rendered
+    assert "Bẻ cấu trúc Tây thành Việt" in rendered
 
 
 def test_vi_passive_rewritten_active():
     rendered = prompts.render("translator_system", src="en", tgt="vi-daichung")
-    assert "Bị động khoa học viết thành chủ động" in rendered
+    assert "bị động thành chủ động" in rendered
 
 
 def test_vi_drops_repeated_subject_pronoun():

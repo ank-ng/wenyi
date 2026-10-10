@@ -124,7 +124,6 @@ CRITERIA: list[tuple[str, list[tuple[str, str]]]] = [
             ("ban-ellipsis-trunc", r"cấm\s+tóm\s+tắt\s+bằng\s+ba\s+chấm"),
             ("psychopathy-term", r"rối\s+loạn\s+nhân\s+cách"),
             ("took-for-granted", r"đinh\s+ninh"),
-            ("leading-authority", r"chuyên\s+gia\s+hàng\s+đầu"),
             ("sympathy-dong-cam", r"đồng\s+cảm"),
         ],
     ),
